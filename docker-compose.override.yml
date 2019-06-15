@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  npvcalculator.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
+
+  npvcalculator.webui:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "4200"
+

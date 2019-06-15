@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  NPVCalculator.data:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: npvccalculatorrdb
+    ports: 
+      - "1434:1433"
+    environment:
+      - "SA_PASSWORD=P@!w0rdP@!!w0rd"
+      - "ACCEPT_EULA=Y"
+    networks:
+       - backend
+  npvcalculator.api:
+    image: ${DOCKER_REGISTRY-}npvcalculator
+    build:
+      context: .
+      dockerfile: NPVCalculator.API/Dockerfile
+
+  npvcalculator.webui:
+    image: ${DOCKER_REGISTRY-}npvcalculator
+    build:
+      context: .
+      dockerfile: NPVCalculator.WebUI/Dockerfile
+
+networks:
+  backend: null
+
