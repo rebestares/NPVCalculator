@@ -14,14 +14,14 @@ export class CalculatorComponent implements OnInit {
 
   public projectionForm = new FormGroup({});
 
-  public projection : ProjectionModel;
+  public projection: ProjectionModel;
   public projectionListModel: ProjectionListModel;
-  public displayedProjectionsColumns: string[] = ['year','discountRateIncrement','initialAmount', 'netPresentValue'];
+  public displayedProjectionsColumns: string[] = ['year', 'discountRateIncrement', 'initialAmount', 'netPresentValue'];
   public http: HttpClient;
-  public baseUrl :string;
+  public baseUrl: string;
 
   constructor(private fb: FormBuilder, http: HttpClient, @Inject('BASE_URL') baseUrl: string
-  ) { 
+  ) {
     this.http = http;
     this.baseUrl = baseUrl;
   }
@@ -33,15 +33,15 @@ export class CalculatorComponent implements OnInit {
 
   public initForm(): void {
 
-  this.projectionForm  = this.fb.group({
-    lowerBoundDiscountRate: [''],
-    upperBoundDiscountRate: [''],
-    discountRateIncrement: [''],
-    initialAmount: [''],
-    cashFlowAmount : this.fb.array([
-      this.fb.control('')
-    ])
-  });
+    this.projectionForm = this.fb.group({
+      lowerBoundDiscountRate: [''],
+      upperBoundDiscountRate: [''],
+      discountRateIncrement: [''],
+      initialAmount: [''],
+      cashFlowAmount: this.fb.array([
+        this.fb.control('')
+      ])
+    });
   }
 
   get cashFlowAmount() {
@@ -57,13 +57,16 @@ export class CalculatorComponent implements OnInit {
     this.projectionListModel = null;
   }
 
-  calculateProjection(){
+  calculateProjection() {
     this.http.post(
       this.baseUrl + 'api/projections/CalculateNPV',
       this.projectionForm.value
     ).subscribe(result => {
       this.projectionListModel = result as ProjectionListModel;
-      this.computationResultTable.renderRows();
+
+      if (this.computationResultTable != null)
+        this.computationResultTable.renderRows();
+        
     }, error => console.error(error));
   }
 }
