@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/theming";
+
+@include mat-core();
+
+$angular-first-steps-primary: mat-pallet($mat-indigo);
+$angular-first-steps-accent: mat-pallet($mat-pink, A200, A100, A400);
+
+$angular-first-steps-warn: mat-pallet($mat-red);
+
+$angular-first-steps-theme: mat-pallet($angular-first-steps-primary, $angular-first-steps-accent, $angular-first-steps-warn);
+
+@include angular-material-theme($angular-first-steps-theme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

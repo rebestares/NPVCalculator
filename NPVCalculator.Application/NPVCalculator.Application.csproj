@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NPVCalculator.Domain\NPVCalculator.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Projections\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Projections\Commands\" />
+    <Folder Include="Projections\Queries\" />
+    <Folder Include="Projections\Queries\GetAll\" />
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Infrastructure\Automapper\" />
+    <Folder Include="Interfaces\Mapping\" />
+    <Folder Include="Projections\Commands\CalculateProjection\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.EntityFrameworkCore">
+      <HintPath>..\..\..\..\..\usr\local\share\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.2.0\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="FluentValidation" Version="8.4.0" />
+    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
+  </ItemGroup>
+</Project>

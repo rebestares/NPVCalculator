@@ -1,0 +1,31 @@
+.calculator-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .calculator-container > * {
+    width: 100%;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+}
+
+.add-cashflow-btn{
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+table {
+  width: 100%;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
