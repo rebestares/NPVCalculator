@@ -4,13 +4,8 @@ services:
   npvcalculator.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_HTTP_PORT=52890
     ports:
-      - "80"
-
-
-  npvcalculator.webui:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "4200"
+      - "52890:80"
 

@@ -5,32 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Class1.cs" />
-    <Compile Remove="NPVCalculator.Application\Class1.cs" />
-    <Compile Remove="NPVCalculator.Application\Projections\Queries\GetAllProjectionsQuery.cs" />
-    <Compile Remove="NPVCalculator.Application\Projections\Queries\GetAllProjectionsQueryHandler.cs" />
-    <Compile Remove="NPVCalculator.Application\Projections\Queries\ProjectionDto.cs" />
-    <Compile Remove="NPVCalculator.Application\Projections\Queries\ProjectionListViewModel.cs" />
-    <Compile Remove="NPVCalculator.Application\obj\Debug\netstandard2.0\NPVCalculator.Application.AssemblyInfo.cs" />
-    <Compile Remove="NPVCalculator.Application\Interfaces\INPVCalculatorDbContext.cs" />
-    <Compile Remove="NPVCalculator.Application\Projections\Queries\ProjectionDto.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="NPVCalculator.Application\bin\Debug\netstandard2.0\NPVCalculator.Application.deps.json" />
-    <None Remove="NPVCalculator.Application\bin\Debug\netstandard2.0\NPVCalculator.Application.dll" />
-    <None Remove="NPVCalculator.Application\obj\NPVCalculator.Application.csproj.nuget.g.props" />
-    <None Remove="NPVCalculator.Application\obj\project.assets.json" />
-    <None Remove="NPVCalculator.Application\obj\NPVCalculator.Application.csproj.nuget.cache" />
-    <None Remove="NPVCalculator.Application\obj\NPVCalculator.Application.csproj.nuget.g.targets" />
-    <None Remove="NPVCalculator.Application\obj\Debug\netstandard2.0\NPVCalculator.Application.assets.cache" />
-    <None Remove="NPVCalculator.Application\obj\Debug\netstandard2.0\NPVCalculator.Application.csprojAssemblyReference.cache" />
-    <None Remove="NPVCalculator.Application\obj\Debug\netstandard2.0\NPVCalculator.Application.AssemblyInfoInputs.cache" />
-    <None Remove="NPVCalculator.Application\obj\Debug\netstandard2.0\NPVCalculator.Application.csproj.CoreCompileInputs.cache" />
-    <None Remove="NPVCalculator.Application\obj\Debug\netstandard2.0\NPVCalculator.Application.dll" />
-    <None Remove="NPVCalculator.Application\obj\Debug\netstandard2.0\NPVCalculator.Application.pdb" />
-    <None Remove="NPVCalculator.Application\obj\Debug\netstandard2.0\NPVCalculator.Application.csproj.FileListAbsolute.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Entities\" />
+    <Folder Include="Models\" />
+    <Folder Include="Models\CommandResponse\" />
   </ItemGroup>
 </Project>

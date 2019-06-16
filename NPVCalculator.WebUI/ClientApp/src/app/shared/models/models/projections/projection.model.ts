@@ -1,7 +1,7 @@
 export interface ProjectionModel {
-    lowerBoundDiscountRate: number,
-    upperBoundDiscountRate: number,
-    discountRateIncrement: number,
-    cashFlowAmount: number,
-    dateAdded: string
+    lowerBoundDiscountRate: number;
+    upperBoundDiscountRate: number;
+    discountRateIncrement: number;
+    initialAmount:number;
+    cashFlowAmount: number[];
 }

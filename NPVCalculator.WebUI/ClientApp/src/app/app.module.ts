@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout'
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { HomeComponent } from './components/home/home.component';
@@ -23,7 +25,10 @@ import { HistoryComponent } from './components/history/history.component'
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
+    FlexLayoutModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'calculator', component: CalculatorComponent },
@@ -31,7 +36,7 @@ import { HistoryComponent } from './components/history/history.component'
     ])
   ],
    providers: [
-    { provide: 'BASE_URL', useValue:"http://localhost:80/" }
+    { provide: 'BASE_URL', useValue:"http://localhost:52890/" }
   ],
   bootstrap: [AppComponent]
 })

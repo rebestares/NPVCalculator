@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Reflection;
+using AutoMapper;
+using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NPVCalculator.Application.Infrastructure.Automapper;
 using NPVCalculator.Application.Interfaces;
+using NPVCalculator.Application.Projections.Queries;
 using NPVCalculator.Persistence;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -22,8 +27,13 @@ namespace NPVCalculator.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(new Assembly[] { typeof(AutomapperProfile).GetTypeInfo().Assembly });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddCors();
+
+            services.AddMediatR(typeof(GetAllProjectionsQueryHandler).GetTypeInfo().Assembly);
             services.AddDbContext<INPVCalculatorDbContext, NPVCalculatorDbContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("NPVCalculatorDatabase")));
 
@@ -36,6 +46,9 @@ namespace NPVCalculator.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -48,6 +61,11 @@ namespace NPVCalculator.API
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "NPV Calculator");
+            });
         }
     }
 }

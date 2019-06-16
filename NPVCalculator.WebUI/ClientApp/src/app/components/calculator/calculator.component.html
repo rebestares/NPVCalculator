@@ -1,3 +1,85 @@
-<p>
-  calculator works!
-</p>
+<mat-card>
+  <label>
+    <h3>Calculate Net Present Value</h3>
+  </label>
+  <div fxLayout="row" fxLayout.xs="column">
+    <div fxFlex="20%">
+      <form [formGroup]="projectionForm">
+        <div class="calculator-container">
+          <mat-form-field hintLabel="e.g. 5%">
+            <input formControlName="upperBoundDiscountRate" matInput [type]="number"
+              placeholder="Upper Bound Discount Rate">
+            <span matSuffix>%</span>
+          </mat-form-field>
+
+          <mat-form-field hintLabel="e.g. 1%">
+            <input matInput formControlName="lowerBoundDiscountRate" [type]="number"
+              placeholder="Lower Bound Discount Rate">
+            <span matSuffix>%</span>
+          </mat-form-field>
+
+          <mat-form-field hintLabel="e.g. 2%">
+            <input matInput formControlName="discountRateIncrement" [type]="number" placeholder="Increment Rate">
+            <span matSuffix>%</span>
+          </mat-form-field>
+
+          <mat-form-field hintLabel="e.g. 10000.00">
+            <input formControlName="initialAmount" matInput [type]="number" placeholder="Initial Amount">
+            <span matSuffix>.00</span>
+          </mat-form-field>
+
+        </div>
+
+        <div class="calculator-container" formArrayName="cashFlowAmount">
+          <span class="add-cashflow-btn">
+            <button mat-raised-button color="primary" (click)="addCashflow()">Add Cash Flow</button>
+          </span>
+          <div *ngFor="let cashflow of cashFlowAmount.controls; let i=index">
+            <mat-form-field hintLabel="e.g. 1000.00">
+              <input [formControlName]="i" matInput [type]="number" placeholder="Cash Flow">
+              <span matSuffix>.00</span>
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+        <div class="button-row">
+          <button mat-raised-button color="warn" (click)="calculateProjection()">Calculate</button>
+          <button mat-raised-button color="accent" (click)="resetCalculator()">Reset</button>
+        </div>
+      </form>
+    </div>
+    <div fxFlex="75%" fxFlexOffset="5" *ngIf="projectionListModel">
+      <table mat-table [dataSource]="projectionListModel.projections" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="year">
+          <th mat-header-cell *matHeaderCellDef> Year </th>
+          <td mat-cell *matCellDef="let i = index"> {{i + 1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="discountRateIncrement">
+          <th mat-header-cell *matHeaderCellDef> Discount Rate Increment </th>
+          <td mat-cell *matCellDef="let projection"> {{projection.discountRateIncrement}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="initialAmount">
+          <th mat-header-cell *matHeaderCellDef> Initial Amount</th>
+          <td mat-cell *matCellDef="let projection"> {{projection.initialAmount}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="netPresentValue">
+          <th mat-header-cell *matHeaderCellDef> Net Present Value </th>
+          <td mat-cell *matCellDef="let projection"> {{projection.netPresentValue}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedProjectionsColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedProjectionsColumns;"></tr>
+      </table>
+      <br>
+      <div>
+          <span> Net Present Value: </span><b>{{projectionListModel.computedNetPresentValue | number}}</b>
+        </div>
+        <br>
+        <div><span>PV of Expected Cashflows: </span><b>{{projectionListModel.expectedPresentCashflowValue | number}}</b>
+        </div>
+    </div>
+  </div>
+</mat-card>
