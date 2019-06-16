@@ -93,7 +93,7 @@ namespace NPVCalculator.Application.Projections.Commands.CalculateProjection
                     cashFlowProjections.Add(new CalculatedProjectionDto()
                     {
                         NetPresentValue = Math.Round(netPresentValue,decimalPlaces),
-                        DiscountRateIncrement = currentDiscountRate,
+                        DiscountRateIncrement = Math.Round(currentDiscountRate, decimalPlaces),
                         InitialAmount = request.InitialAmount
                     });
                 }

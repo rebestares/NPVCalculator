@@ -1,8 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { ProjectionModel } from 'src/app/shared/models/models/projections/projection.model';
 import { ProjectionListModel } from 'src/app/shared/models/models/projections/projection-list.model';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { MatTable } from '@angular/material';
+
 @Component({
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
@@ -27,6 +29,8 @@ export class CalculatorComponent implements OnInit {
   ngOnInit() {
     this.initForm();
   }
+  @ViewChild(MatTable) computationResultTable: MatTable<any>;
+
   public initForm(): void {
 
   this.projectionForm  = this.fb.group({
@@ -59,6 +63,7 @@ export class CalculatorComponent implements OnInit {
       this.projectionForm.value
     ).subscribe(result => {
       this.projectionListModel = result as ProjectionListModel;
+      this.computationResultTable.renderRows();
     }, error => console.error(error));
   }
 }
