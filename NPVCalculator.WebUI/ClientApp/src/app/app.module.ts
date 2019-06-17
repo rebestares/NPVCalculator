@@ -9,17 +9,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { HomeComponent } from './components/home/home.component';
-import {MaterialModule} from './core/material/material.module.js';
+import { MaterialModule } from './core/material/material.module.js';
 import { CalculatorComponent } from './components/calculator/calculator.component';
-import { HistoryComponent } from './components/history/history.component'
+import { HistoryComponent } from './components/history/history.component';
+import { GenericDialogComponent } from './components/generic-dialog/generic-dialog.component'
 
 @NgModule({
+  entryComponents:[
+    GenericDialogComponent
+  ],
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
     CalculatorComponent,
-    HistoryComponent
+    HistoryComponent,
+    GenericDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

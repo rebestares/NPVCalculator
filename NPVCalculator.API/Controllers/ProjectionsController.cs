@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NPVCalculator.Application.Projections.Commands.CalculateProjection;
+using NPVCalculator.Application.Projections.Commands.SaveCalculation;
 using NPVCalculator.Application.Projections.Queries;
 
 namespace NPVCalculator.API.Controllers
@@ -26,6 +27,17 @@ namespace NPVCalculator.API.Controllers
        /// <returns>The ProjectionsListViewModel</returns>
         [HttpPost]
         public async Task<ActionResult<CalculatedProjectionResponse>> CalculateNPV([FromBody] CalculateProjectionCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+
+        /// <summary>
+        /// Endpoint for saving projection calculation.
+        /// </summary>
+        /// <returns>The calculation.</returns>
+        /// <param name="command">Command.</param>
+        [HttpPost]
+        public async Task<ActionResult<bool>> SaveCalculation([FromBody] SaveCalculationCommand command)
         {
             return Ok(await Mediator.Send(command));
         }

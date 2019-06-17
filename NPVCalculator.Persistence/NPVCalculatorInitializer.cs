@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using NPVCalculator.Domain.Entities;
 
 namespace NPVCalculator.Persistence
@@ -17,6 +18,8 @@ namespace NPVCalculator.Persistence
         {
             var initializer = new NPVCalculatorInitializer();
             initializer.SeedEverything(context);
+
+            context.Database.Migrate();
         }
 
         /// <summary>
@@ -25,6 +28,7 @@ namespace NPVCalculator.Persistence
         /// <param name="context">NPVCalculatorDbContext object</param>
         public void SeedEverything(NPVCalculatorDbContext context)
         {
+
             context.Database.EnsureCreated();
 
             if (context.Projections.Any())
@@ -32,7 +36,7 @@ namespace NPVCalculator.Persistence
                 return; // Db has been seeded
             }
 
-            SeedUsers(context);
+            //SeedUsers(context);
 
         }
 
@@ -40,18 +44,16 @@ namespace NPVCalculator.Persistence
         /// Method for seeding users table
         /// </summary>
         /// <param name="context">ExpenseTrackerDbContext object</param>
-        public void SeedUsers(NPVCalculatorDbContext context)
-        {
-            var projections = new[]
-            {
-                new Projection {  CashflowAmount = 1000, DateAdded = DateTime.UtcNow, DiscountRateIncrement = .5,  LowerBoundDiscountRate = .5, UpperBoundDiscountRate = 1.5 },
-                new Projection {  CashflowAmount = 2000, DateAdded = DateTime.UtcNow, DiscountRateIncrement = .5,  LowerBoundDiscountRate = .10, UpperBoundDiscountRate = 2.5 },
-                new Projection {  CashflowAmount = 3000, DateAdded = DateTime.UtcNow, DiscountRateIncrement = .5,  LowerBoundDiscountRate = .15, UpperBoundDiscountRate = 3.5 }
-            };
+        //public void SeedUsers(NPVCalculatorDbContext context)
+        //{
+        //    var projections = new[]
+        //    {
+        //        new Projection {Id = Guid.NewGuid(),  DateAdded = DateTime.UtcNow, DiscountRateIncrement = .5,  LowerBoundDiscountRate = .5, UpperBoundDiscountRate = 1.5 }
+        //    };
 
-            context.Projections.AddRange(projections);
+        //    context.Projections.AddRange(projections);
 
-            context.SaveChanges();
-        }
+        //    context.SaveChanges();
+        //}
     }
 }
