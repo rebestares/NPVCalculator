@@ -4,6 +4,10 @@ import { ProjectionListModel } from 'src/app/shared/models/models/projections/pr
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { MatTable } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ProjectionSaveCalculation } from 'src/app/shared/models/models/projections/projection-save-calculation-model';
 
 @Component({
   selector: 'app-calculator',
@@ -13,14 +17,19 @@ import { MatTable } from '@angular/material';
 export class CalculatorComponent implements OnInit {
 
   public projectionForm = new FormGroup({});
-
   public projection: ProjectionModel;
   public projectionListModel: ProjectionListModel;
+  public projectionSaveCalculationModel : ProjectionSaveCalculation;
   public displayedProjectionsColumns: string[] = ['year', 'discountRateIncrement', 'initialAmount', 'netPresentValue'];
   public http: HttpClient;
   public baseUrl: string;
+  public showLoading:boolean;
 
-  constructor(private fb: FormBuilder, http: HttpClient, @Inject('BASE_URL') baseUrl: string
+  constructor(
+    private fb: FormBuilder, 
+    http: HttpClient, @Inject('BASE_URL') baseUrl: string,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
     this.http = http;
     this.baseUrl = baseUrl;
@@ -48,13 +57,45 @@ export class CalculatorComponent implements OnInit {
     return this.projectionForm.get('cashFlowAmount') as FormArray;
   }
 
-  addCashflow(control) {
+  addCashflow() {
     this.cashFlowAmount.push(this.fb.control(''));
   }
 
   resetCalculator() {
     this.initForm();
     this.projectionListModel = null;
+  }
+
+  saveResult(){
+    this.showLoading = true;
+    this.projectionSaveCalculationModel = this.projectionForm.value as ProjectionSaveCalculation;
+    this.projectionSaveCalculationModel.computedNetPresentValue = this.projectionListModel.computedNetPresentValue;
+    this.projectionSaveCalculationModel.expectedPresentCashflowValue = this.projectionListModel.expectedPresentCashflowValue;
+
+    this.http.post(
+      this.baseUrl + 'api/projections/SaveCalculation',
+      this.projectionSaveCalculationModel
+    ).subscribe(result => {
+      this.showLoading = false;
+      this.snackBar.open("Result Saved", "Success", {
+        duration: 2000,
+      });
+      this.resetCalculator();
+    }, error => console.error(error));
+
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(GenericDialogComponent, {
+      width: '250px',
+      data: this.projectionListModel
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.saveResult();
+      }
+    });
   }
 
   calculateProjection() {
@@ -66,7 +107,7 @@ export class CalculatorComponent implements OnInit {
 
       if (this.computationResultTable != null)
         this.computationResultTable.renderRows();
-        
+
     }, error => console.error(error));
   }
 }

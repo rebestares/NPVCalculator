@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NPVCalculator.Persistence;
 
 namespace NPVCalculator.Persistence.Migrations
 {
     [DbContext(typeof(NPVCalculatorDbContext))]
-    partial class NPVCalculatorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190617151821_update-projection")]
+    partial class updateprojection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

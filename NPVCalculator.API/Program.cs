@@ -23,7 +23,8 @@ namespace NPVCalculator.API
                     var context = scope.ServiceProvider.GetService<INPVCalculatorDbContext>();
 
                     var concreteContext = (NPVCalculatorDbContext)context;
-                    concreteContext.Database.Migrate();
+
+                    //concreteContext.Database.Migrate();
 
 #if DEBUG
                     NPVCalculatorInitializer.Initialize(concreteContext);

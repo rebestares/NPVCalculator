@@ -17,6 +17,7 @@
     <Folder Include="Infrastructure\Automapper\" />
     <Folder Include="Interfaces\Mapping\" />
     <Folder Include="Projections\Commands\CalculateProjection\" />
+    <Folder Include="Projections\Commands\SaveCalculation\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.EntityFrameworkCore">
