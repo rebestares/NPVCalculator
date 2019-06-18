@@ -25,14 +25,6 @@ namespace NPVCalculator.Application.Projections.Commands.CalculateProjection
         /// </summary>
         public class Handler : IRequestHandler<CalculateProjectionCommand, CalculatedProjectionResponse>
         {
-            private readonly INPVCalculatorDbContext _context;
-            private readonly IMediator _mediator;
-
-            public Handler(INPVCalculatorDbContext context, IMediator mediator)
-            {
-                _context = context;
-                _mediator = mediator;
-            }
 
             /// <summary>
             /// Handle the specified request and cancellationToken.
@@ -42,6 +34,11 @@ namespace NPVCalculator.Application.Projections.Commands.CalculateProjection
             /// <param name="cancellationToken">Cancellation token.</param>
             public async Task<CalculatedProjectionResponse> Handle(CalculateProjectionCommand request, CancellationToken cancellationToken)
             {
+                if(request == null)
+                {
+                    throw new ArgumentNullException();
+                }
+
                 try
                 {
                     ComputeNetPresentValue(request);
