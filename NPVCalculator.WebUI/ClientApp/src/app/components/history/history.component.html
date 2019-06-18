@@ -1,3 +1,44 @@
 <mat-card>
-  history works!
+  <label>
+    <h3>Calculation History</h3>
+  </label>
+
+  <table mat-table [dataSource]="projectionListModel.projections" class="mat-elevation-z8" *ngIf="projectionListModel">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let i = index"> {{i + 1}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lowerBoundDiscountRate">
+      <th mat-header-cell *matHeaderCellDef> Lower Bound Discount Rate </th>
+      <td mat-cell *matCellDef="let projection"> {{projection.lowerBoundDiscountRate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="upperBoundDiscountRate">
+      <th mat-header-cell *matHeaderCellDef> Upper Bound Discount Rate </th>
+      <td mat-cell *matCellDef="let projection"> {{projection.upperBoundDiscountRate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="discountRateIncrement">
+      <th mat-header-cell *matHeaderCellDef> Discount Rate Increment</th>
+      <td mat-cell *matCellDef="let projection"> {{projection.discountRateIncrement}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="initialAmount">
+      <th mat-header-cell *matHeaderCellDef> InitialAmount </th>
+      <td mat-cell *matCellDef="let projection"> {{projection.initialAmount}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expectedPresentCashflowValue">
+      <th mat-header-cell *matHeaderCellDef> Expected Present Cashflow Value </th>
+      <td mat-cell *matCellDef="let projection"> {{projection.expectedPresentCashflowValue}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="computedNetPresentValue">
+      <th mat-header-cell *matHeaderCellDef> Computed Net Present Value </th>
+      <td mat-cell *matCellDef="let projection"> {{projection.computedNetPresentValue}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedProjectionsColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedProjectionsColumns;"></tr>
+  </table>
 </mat-card>

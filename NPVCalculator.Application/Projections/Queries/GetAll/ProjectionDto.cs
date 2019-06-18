@@ -25,22 +25,16 @@ namespace NPVCalculator.Application.Projections.Queries
         public double DiscountRateIncrement { get; set; }
 
         /// <summary>
-        /// Gets or sets the cashflow amount.
+        /// Gets or sets the computed net present value.
         /// </summary>
-        /// <value>The cashflow amount.</value>
-        public double CashflowAmount { get; set; }
+        /// <value>The computed net present value.</value>
+        public double ComputedNetPresentValue { get; set; }
 
         /// <summary>
-        /// Gets or sets the projected amount.
+        /// Gets or sets the expected present cashflow value.
         /// </summary>
-        /// <value>The projected amount.</value>
-        public double ProjectedAmount { get; set; }
-
-        /// <summary>
-        /// Gets or sets the initial value.
-        /// </summary>
-        /// <value>The initial value.</value>
-        public double InitialValue { get; set; }
+        /// <value>The expected present cashflow value.</value>
+        public double ExpectedPresentCashflowValue { get; set; }
 
         /// <summary>
         /// Gets or sets the date added.
