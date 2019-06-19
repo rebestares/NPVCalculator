@@ -102,7 +102,9 @@ namespace NPVCalculator.Application.Projections.Commands.CalculateProjection
                         NetPresentValue = Math.Round(totalNPV, decimalPlaces),
                         DiscountRateIncrement = Math.Round(currentDiscountRate, decimalPlaces),
                         InitialAmount = request.InitialAmount,
-                        PresentValueExpectedCashflow = Math.Round(presentValueExpectedCashflow, decimalPlaces)
+                        PresentValueExpectedCashflow = Math.Round(presentValueExpectedCashflow, decimalPlaces),
+                        UpperBoundDiscountRate = request.UpperBoundDiscountRate,
+                        LowerBoundDiscountRate = currentDiscountRate
                     });
 
                     expectedCashflowAmountList.Add(presentValue);

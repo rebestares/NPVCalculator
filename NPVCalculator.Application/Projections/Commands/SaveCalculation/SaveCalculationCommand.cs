@@ -11,36 +11,11 @@ namespace NPVCalculator.Application.Projections.Commands.SaveCalculation
 {
     public class SaveCalculationCommand : IRequest<bool>
     {
-
         /// <summary>
-        /// Gets or sets the lower bound discount rate.
+        /// Gets or sets the projections.
         /// </summary>
-        /// <value>The lower bound discount rate.</value>
-        public double LowerBoundDiscountRate { get; set; }
-
-        /// <summary>
-        /// Gets or sets the upper bound discount rate.
-        /// </summary>
-        /// <value>The upper bound discount rate.</value>
-        public double UpperBoundDiscountRate { get; set; }
-
-        /// <summary>
-        /// Gets or sets the discount rate increment.
-        /// </summary>
-        /// <value>The discount rate increment.</value>
-        public double DiscountRateIncrement { get; set; }
-
-        /// <summary>
-        /// Gets or sets the computed net present value.
-        /// </summary>
-        /// <value>The computed net present value.</value>
-        public double ComputedNetPresentValue { get; set; }
-
-        /// <summary>
-        /// Gets or sets the expected present cashflow value.
-        /// </summary>
-        /// <value>The expected present cashflow value.</value>
-        public double ExpectedPresentCashflowValue { get; set; }
+        /// <value>The projections.</value>
+        public IList<SaveCommandDto> Projections { get; set; }
 
         public class Handler : IRequestHandler<SaveCalculationCommand, bool>
         {
@@ -64,18 +39,22 @@ namespace NPVCalculator.Application.Projections.Commands.SaveCalculation
                 try
                 {
 
-                    var entity = new Projection
+                    foreach(var projection in request.Projections)
                     {
-                        Id = Guid.NewGuid(),
-                        ComputedNetPresentValue = request.ComputedNetPresentValue,
-                        DateAdded = DateTime.UtcNow,
-                        DiscountRateIncrement = request.DiscountRateIncrement,
-                        ExpectedPresentCashflowValue = request.ExpectedPresentCashflowValue,
-                        LowerBoundDiscountRate = request.LowerBoundDiscountRate,
-                        UpperBoundDiscountRate = request.UpperBoundDiscountRate
-                    };
+                        var entity = new Projection
+                        {
+                            Id = Guid.NewGuid(),
+                            DateAdded = DateTime.UtcNow,
+                            DiscountRateIncrement = projection.DiscountRateIncrement,
+                            LowerBoundDiscountRate = projection.LowerBoundDiscountRate,
+                            UpperBoundDiscountRate = projection.UpperBoundDiscountRate,
+                            ComputedNetPresentValue = projection.NetPresentValue,
+                            ExpectedPresentCashflowValue = projection.PresentValueExpectedCashflow
+                        };
 
-                    _context.Projections.Add(entity);
+                        _context.Projections.Add(entity);
+
+                    }
 
                     await _context.SaveChangesAsync(cancellationToken);
 
