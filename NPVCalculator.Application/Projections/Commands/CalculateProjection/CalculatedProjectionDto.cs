@@ -20,5 +20,11 @@ namespace NPVCalculator.Application.Projections.Commands.CalculateProjection
         /// </summary>
         /// <value>The net present value.</value>
         public double NetPresentValue { get; set; }
+
+        /// <summary>
+        /// Gets or sets the present value expected cashflow.
+        /// </summary>
+        /// <value>The present value expected cashflow.</value>
+        public double PresentValueExpectedCashflow { get; set; }
     }
 }

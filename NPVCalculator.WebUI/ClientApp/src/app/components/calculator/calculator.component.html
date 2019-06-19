@@ -74,20 +74,21 @@
           <td mat-cell *matCellDef="let projection"> {{projection.initialAmount}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="presentValueExpectedCashflow">
+          <th mat-header-cell *matHeaderCellDef>  PV of Expected Cashflow</th>
+          <td mat-cell *matCellDef="let projection"> {{projection.presentValueExpectedCashflow}} </td>
+        </ng-container>
+
+        
+
         <ng-container matColumnDef="netPresentValue">
-          <th mat-header-cell *matHeaderCellDef> Net Present Value </th>
+          <th mat-header-cell *matHeaderCellDef>Net Present Value </th>
           <td mat-cell *matCellDef="let projection"> {{projection.netPresentValue}} </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedProjectionsColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedProjectionsColumns;"></tr>
       </table>
       <br>
-      <div>
-        <span> Net Present Value: </span><b>{{projectionListModel.computedNetPresentValue | number}}</b>
-      </div>
-      <br>
-      <div><span>PV of Expected Cashflows: </span><b>{{projectionListModel.expectedPresentCashflowValue | number}}</b>
-      </div>
     </div>
   </div>
 </mat-card>

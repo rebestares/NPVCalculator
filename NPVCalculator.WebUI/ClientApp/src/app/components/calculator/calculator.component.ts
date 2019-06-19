@@ -20,7 +20,7 @@ export class CalculatorComponent implements OnInit {
   public projection: ProjectionModel;
   public projectionListModel: ProjectionListModel;
   public projectionSaveCalculationModel : ProjectionSaveCalculation;
-  public displayedProjectionsColumns: string[] = ['year', 'discountRateIncrement', 'initialAmount', 'netPresentValue'];
+  public displayedProjectionsColumns: string[] = ['year', 'discountRateIncrement', 'initialAmount', 'netPresentValue', 'presentValueExpectedCashflow'];
   public http: HttpClient;
   public baseUrl: string;
   public showLoading:boolean;
