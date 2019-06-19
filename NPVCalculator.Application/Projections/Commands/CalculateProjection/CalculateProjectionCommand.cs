@@ -62,14 +62,16 @@ namespace NPVCalculator.Application.Projections.Commands.CalculateProjection
                 var lowerBoundDiscountRatePass = 0;
                 var currentDiscountRate = request.DiscountRateIncrement;
                 var cashFlowProjections = new List<CalculatedProjectionDto>();
+                var expectedCashflowAmountList = new List<double>();
 
-
+                List<double> netPresentValueList;
                 while (currentDiscountRate < request.UpperBoundDiscountRate)
                 {
+                    netPresentValueList = new List<double>();
 
                     if (lowerBoundDiscountRatePass != 0)
                     {
-                        currentDiscountRate += request.DiscountRateIncrement;
+                        currentDiscountRate  += request.DiscountRateIncrement;
 
                         if (currentDiscountRate > request.UpperBoundDiscountRate)
                             continue;
@@ -80,28 +82,34 @@ namespace NPVCalculator.Application.Projections.Commands.CalculateProjection
                         lowerBoundDiscountRatePass++;
                     }
 
-                    var computedDiscountRate = Math.Pow(1 + currentDiscountRate, lowerBoundDiscountRatePass);
-                    var netPresentValue = 0.00;
+                    var realDiscountRate = (currentDiscountRate / 100) + 1;
+
+                    var discountRateForPresentValue = 1;
                     foreach(var cashFlow in request.CashFlowAmount)
                     {
-                        netPresentValue += cashFlow / computedDiscountRate;
+                        var computedDiscountRate = Math.Pow(realDiscountRate, discountRateForPresentValue);
+                        var netPresentValue = cashFlow / computedDiscountRate;
+                        netPresentValueList.Add(netPresentValue);
+                        discountRateForPresentValue++;
                     }
 
+
+                    var presentValue = netPresentValueList.Sum();
+                    var totalNPV = netPresentValueList.Sum() - request.InitialAmount;
+                    var presentValueExpectedCashflow = netPresentValueList.Sum();
                     cashFlowProjections.Add(new CalculatedProjectionDto()
                     {
-                        NetPresentValue = Math.Round(netPresentValue,decimalPlaces),
+                        NetPresentValue = Math.Round(totalNPV, decimalPlaces),
                         DiscountRateIncrement = Math.Round(currentDiscountRate, decimalPlaces),
-                        InitialAmount = request.InitialAmount
+                        InitialAmount = request.InitialAmount,
+                        PresentValueExpectedCashflow = Math.Round(presentValueExpectedCashflow, decimalPlaces)
                     });
-                }
 
-                var totalNPV = cashFlowProjections.Sum(a => a.NetPresentValue) - request.InitialAmount;
-                var expectedPresentCashflowValue = cashFlowProjections.Sum(a => a.NetPresentValue);
+                    expectedCashflowAmountList.Add(presentValue);
+                }
 
                 var response = new CalculatedProjectionResponse()
                 {
-                    ComputedNetPresentValue = Math.Round(totalNPV, decimalPlaces),
-                    ExpectedPresentCashflowValue = Math.Round(expectedPresentCashflowValue, decimalPlaces),
                     Projections = cashFlowProjections 
                 };
 
