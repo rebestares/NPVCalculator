@@ -68,13 +68,10 @@ export class CalculatorComponent implements OnInit {
 
   saveResult(){
     this.showLoading = true;
-    this.projectionSaveCalculationModel = this.projectionForm.value as ProjectionSaveCalculation;
-    this.projectionSaveCalculationModel.computedNetPresentValue = this.projectionListModel.computedNetPresentValue;
-    this.projectionSaveCalculationModel.expectedPresentCashflowValue = this.projectionListModel.expectedPresentCashflowValue;
 
     this.http.post(
       this.baseUrl + 'api/projections/SaveCalculation',
-      this.projectionSaveCalculationModel
+      this.projectionListModel
     ).subscribe(result => {
       this.showLoading = false;
       this.snackBar.open("Result Saved", "Success", {

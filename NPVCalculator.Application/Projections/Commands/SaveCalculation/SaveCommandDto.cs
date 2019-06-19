@@ -1,7 +1,7 @@
 ﻿using System;
-namespace NPVCalculator.Application.Projections.Commands.CalculateProjection
+namespace NPVCalculator.Application.Projections.Commands.SaveCalculation
 {
-    public class CalculatedProjectionDto
+    public class SaveCommandDto
     {
         /// <summary>
         /// Gets or sets the discount rate increment.
